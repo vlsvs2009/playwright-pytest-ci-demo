@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Service Orders</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+<main>
+  <!-- Login -->
+  <section id="login-view" class="card login" data-testid="login-view" hidden>
+    <h1>Sign in</h1>
+    <p class="muted">Service Orders demo. Use the demo account from the README.</p>
+    <form id="login-form" data-testid="login-form" novalidate>
+      <label for="username">Username</label>
+      <input id="username" name="username" type="text" autocomplete="username" data-testid="login-username">
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" autocomplete="current-password" data-testid="login-password">
+      <p id="login-error" class="alert" role="alert" data-testid="login-error" hidden></p>
+      <button type="submit" class="primary" data-testid="login-submit">Sign in</button>
+    </form>
+  </section>
+
+  <!-- Orders -->
+  <section id="orders-view" data-testid="orders-view" hidden>
+    <header class="topbar">
+      <h1>Service Orders</h1>
+      <div class="session">
+        <span class="muted" data-testid="current-user"></span>
+        <button type="button" id="logout" data-testid="logout">Sign out</button>
+      </div>
+    </header>
+
+    <form id="order-form" class="card order-form" aria-label="New order" data-testid="order-form" novalidate>
+      <h2>New order</h2>
+      <div class="fields">
+        <div class="field">
+          <label for="customer">Customer</label>
+          <input id="customer" name="customer" type="text" maxlength="80" data-testid="order-customer-input">
+        </div>
+        <div class="field">
+          <label for="service">Service</label>
+          <input id="service" name="service" type="text" maxlength="120" data-testid="order-service-input">
+        </div>
+        <div class="field narrow">
+          <label for="price">Price</label>
+          <input id="price" name="price" type="number" step="0.01" min="0" inputmode="decimal" data-testid="order-price-input">
+        </div>
+        <div class="field narrow">
+          <label for="status">Status</label>
+          <select id="status" name="status" data-testid="order-status-input">
+            <option value="new">New</option>
+            <option value="in_progress">In progress</option>
+            <option value="done">Done</option>
+          </select>
+        </div>
+      </div>
+      <div id="form-error" class="alert" role="alert" data-testid="form-error" hidden></div>
+      <button type="submit" class="primary" data-testid="order-submit">Add order</button>
+    </form>
+
+    <div class="card">
+      <div class="toolbar">
+        <div class="filter">
+          <label for="status-filter">Filter by status</label>
+          <select id="status-filter" data-testid="status-filter">
+            <option value="">All</option>
+            <option value="new">New</option>
+            <option value="in_progress">In progress</option>
+            <option value="done">Done</option>
+          </select>
+        </div>
+        <span class="muted" data-testid="orders-count" aria-live="polite"></span>
+      </div>
+      <table aria-label="Orders" aria-busy="true" data-testid="orders-table">
+        <thead>
+          <tr><th>#</th><th>Customer</th><th>Service</th><th class="num">Price</th><th>Status</th><th><span class="sr-only">Actions</span></th></tr>
+        </thead>
+        <tbody id="orders-body"></tbody>
+      </table>
+      <p class="empty muted" data-testid="empty-state" hidden>No orders match this filter.</p>
+    </div>
+  </section>
+</main>
+</body>
+</html>

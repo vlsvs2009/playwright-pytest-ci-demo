@@ -1,0 +1,31 @@
+[project]
+name = "playwright-pytest-ci-demo"
+version = "1.0.0"
+description = "Test automation showcase: API + UI tests (pytest, httpx, Playwright) running in parallel in CI."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Vladimir Siur" }]
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = [
+    "-ra",
+    "--strict-markers",
+    "--strict-config",
+    # Playwright artifacts: kept only for failed tests
+    "--tracing=retain-on-failure",
+    "--screenshot=only-on-failure",
+    "--output=reports/playwright",
+    # One consolidated, self-contained HTML report (also with -n auto)
+    "--html=reports/report.html",
+    "--self-contained-html",
+]
+markers = [
+    "api: HTTP-level tests against the REST API (fast)",
+    "ui: end-to-end browser tests with Playwright",
+    "smoke: minimal critical-path subset",
+]
+xfail_strict = true
